@@ -1,0 +1,52 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+Table User as us {
+  ID        uint  [pk, increment] // auto-increment        
+  CreatedAt timestamp
+  UpdatedAt timestamp
+	Username  string
+	Password  string
+	FirstName string
+	LastName  string
+	Phone     string
+	// CreatedAt	string
+	// ModifiedAt	string
+	Status bool
+// 	Addrs  []UserAddress
+}
+
+table UserAddress as usAddr{
+  ID        uint 
+	UserId       int 
+  CreatedAt timestamp
+  UpdatedAt timestamp
+	AddressLine1 string
+	AddressLine2 string
+	City         string
+	PostalCode   string
+	Country      string
+	Phone        string
+	Telephone    string
+	Indexes {
+    (ID, UserId) [pk]
+  }
+}
+
+table UserPayment as usPay{
+  ID        uint 
+	UserId       int 
+  CreatedAt timestamp
+  UpdatedAt timestamp
+	PaymentType string
+	Provider string
+	AccountNo        int
+	Expiry   date
+	Indexes {
+    (ID, UserId) [pk]
+  }
+}
+
+Ref: us.ID < usAddr.UserId 
+Ref: us.ID < usPay.UserId 
